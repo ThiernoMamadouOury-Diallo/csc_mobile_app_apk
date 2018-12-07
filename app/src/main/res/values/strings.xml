@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">tasClientMobile</string>
+    <string name="afficher_map">Afficher MAP</string>
+    <string name="telecharger_facture">Télécharger des factures</string>
 </resources>

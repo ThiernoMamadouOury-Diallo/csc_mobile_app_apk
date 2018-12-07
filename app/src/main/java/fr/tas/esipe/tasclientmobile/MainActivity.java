@@ -3,22 +3,17 @@ package fr.tas.esipe.tasclientmobile;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import org.osmdroid.api.Marker;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ItemizedIconOverlay;
-import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.tas.esipe.tasclientmobile.model.CustomOverLay;
@@ -33,7 +28,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         checkPermission();
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_map);
 
         mMapView = findViewById(R.id.map);
 
