@@ -1,4 +1,5 @@
 <resources>
     <string name="afficher_map">Afficher MAP</string>
     <string name="telecharger_facture">Télécharger des factures</string>
+    <string name="app_name">TAS Mobile</string>
 </resources>
