@@ -1,4 +1,4 @@
-package fr.tas.esipe.tasclientmobile;
+package fr.tas.esipe.tasclientmobile.activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -9,6 +9,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
+
+import fr.tas.esipe.tasclientmobile.R;
 
 public class MainActivity extends Activity {
 
