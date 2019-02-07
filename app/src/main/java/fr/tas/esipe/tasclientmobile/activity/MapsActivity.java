@@ -42,18 +42,10 @@ public class MapsActivity extends Activity implements Callback<List<Location>> {
         mMapController.setZoom(25);
 
         /*Create handle for the RetrofitInstance interface*/
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        GetDataService service = RetrofitClientInstance.getInstanceForMaps().create(GetDataService.class);
         Call<List<Location>> call = service.getAllLocations();
 
         call.enqueue(this);
-
-
-//        List<GeoPoint> locationsList = new ArrayList<>();
-//        locationsList.add(new GeoPoint(48.8594718, 2.3449232));
-//        locationsList.add(new GeoPoint(48.8594720, 2.3449228));
-
-
-
     }
 
     @Override
@@ -74,19 +66,15 @@ public class MapsActivity extends Activity implements Callback<List<Location>> {
             List<Location> locationsList = response.body();
             CustomOverLay overlays = new CustomOverLay(getResources().getDrawable(R.drawable.baseline_accessible_forward_black_18dp), mMapView);
 
-//        GeoPoint p = new GeoPoint(48.8594718, 2.3449232);
-//        GeoPoint p = new GeoPoint(vehiculesLocationsResourcesapiServices.get(0).ListLocation.get(0).latitude, vehiculesLocationsResourcesapiServices.get(0).ListLocation.get(0).longitude);
             GeoPoint p = new GeoPoint(locationsList.get(0).getLatitude(), locationsList.get(0).getLongitude());
             OverlayItem overlayItem = new OverlayItem("aaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaa", p);
             overlays.addOverlayItem(overlayItem);
 
-//        GeoPoint p2 = new GeoPoint(48.87, 2.34495);
             GeoPoint p2 = new GeoPoint(locationsList.get(1).getLatitude(), locationsList.get(1).getLongitude());
             OverlayItem overlayItem2 = new OverlayItem("aaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaa", p2);
             overlays.addOverlayItem(overlayItem2);
 
             mapOverlays.add(overlays);
-
 
             final MyLocationNewOverlay myLocationNewOverlay = new MyLocationNewOverlay(this, mMapView);
             myLocationNewOverlay.enableFollowLocation();
