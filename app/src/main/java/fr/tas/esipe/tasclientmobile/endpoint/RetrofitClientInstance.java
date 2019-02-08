@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL_MAPS = "http://172.16.0.2:5000";
+    private static final String BASE_URL_MAPS = "http://api.dev.tas.inside.esiag.info/restapimap/";
 
     public static Retrofit getInstanceForMaps() {
         if (retrofit == null) {
