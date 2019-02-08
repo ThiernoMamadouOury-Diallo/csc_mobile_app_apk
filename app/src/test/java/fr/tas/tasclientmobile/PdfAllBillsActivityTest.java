@@ -8,8 +8,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import fr.tas.esipe.tasclientmobile.ConnectToRestApi;
-import fr.tas.esipe.tasclientmobile.PdfAllBillsActivity;
+import fr.tas.esipe.tasclientmobile.endpoint.ConnectToRestApi;
+import fr.tas.esipe.tasclientmobile.activity.PdfAllBillsActivity;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;

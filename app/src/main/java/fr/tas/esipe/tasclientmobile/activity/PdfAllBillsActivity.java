@@ -1,4 +1,4 @@
-package fr.tas.esipe.tasclientmobile;
+package fr.tas.esipe.tasclientmobile.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -21,7 +21,10 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import fr.tas.esipe.tasclientmobile.R;
+import fr.tas.esipe.tasclientmobile.endpoint.ConnectToRestApi;
 import fr.tas.esipe.tasclientmobile.model.BillFileBean;
+import fr.tas.esipe.tasclientmobile.utils.PdfFileAdapter;
 
 public class PdfAllBillsActivity extends AppCompatActivity {
 
@@ -77,8 +80,8 @@ public class PdfAllBillsActivity extends AppCompatActivity {
     public void initList(){
 
         //Connexion à l'API REST pour recupérer la liste des factures
-        //Mettre le resultat dans le tableau d'URL
-        new ConnectToRestApi().execute("http://192.168.0.43:5000/bills/1");
+        //Mettre le resultat dans le tableau d'URL 192.168.0.43
+        new ConnectToRestApi().execute("http://172.16.0.2:5000/bills/1");
         // Remplir la list d'url ici
         listBills.add("http://maven.apache.org/archives/maven-1.x/maven.pdf");
 

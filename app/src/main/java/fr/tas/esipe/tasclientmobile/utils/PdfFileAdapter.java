@@ -1,4 +1,4 @@
-package fr.tas.esipe.tasclientmobile;
+package fr.tas.esipe.tasclientmobile.utils;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.ArrayList;
 
+import fr.tas.esipe.tasclientmobile.R;
 import fr.tas.esipe.tasclientmobile.model.BillFileBean;
 
 public class PdfFileAdapter extends ArrayAdapter<BillFileBean> {

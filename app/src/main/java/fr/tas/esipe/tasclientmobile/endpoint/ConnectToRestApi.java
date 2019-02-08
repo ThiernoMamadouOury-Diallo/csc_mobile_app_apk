@@ -1,4 +1,4 @@
-package fr.tas.esipe.tasclientmobile;
+package fr.tas.esipe.tasclientmobile.endpoint;
 
 import android.os.AsyncTask;
 
