@@ -14,7 +14,7 @@ import fr.tas.esipe.tasclientmobile.R;
 
 public class MainActivity extends Activity {
 
-    private Button maps, facture;
+    private Button maps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,20 @@ public class MainActivity extends Activity {
         });
     }
 
+    ////Retrieve bills for connected user
+
+    /**
+     *
+     * @param view
+     */
+    public void getBillsList(View view) {
+        Intent intent = new Intent(MainActivity.this, PdfAllBillsActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Check permission
+     */
     private void checkPermission(){
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){

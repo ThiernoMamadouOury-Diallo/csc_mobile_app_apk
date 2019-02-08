@@ -23,6 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MapsActivity"/>
+        <activity
+            android:name=".PdfAllBillsActivity"
+            android:label="@string/title_activity_pdf_all_bills"></activity>
     </application>
 
 </manifest>
