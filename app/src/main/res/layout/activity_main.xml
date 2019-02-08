@@ -19,7 +19,8 @@
             android:id="@+id/facture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/telecharger_facture"/>
+            android:text="@string/Bills_list"
+            android:onClick="getBillsList" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
