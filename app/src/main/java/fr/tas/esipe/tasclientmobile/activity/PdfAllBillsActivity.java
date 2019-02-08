@@ -105,8 +105,8 @@ public class PdfAllBillsActivity extends AppCompatActivity {
      */
     public void initList() throws ExecutionException, InterruptedException, JSONException {
 
-       //192.168.0.43 172.16.0.2
-        String jsonBillsUrls = new ConnectToRestApi().execute("http://10.0.2.2:5000/bills/1").get();
+        String jsonBillsUrls = new ConnectToRestApi()
+                .execute("http://api.dev.tas.inside.esiag.info/restapiclient/bills/1").get();
 
         JSONObject obj = new JSONObject(jsonBillsUrls);
         JSONArray arr = obj.getJSONArray("bills");
