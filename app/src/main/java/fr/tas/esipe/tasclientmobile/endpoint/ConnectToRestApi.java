@@ -10,6 +10,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+import fr.tas.esipe.tasclientmobile.activity.PdfAllBillsActivity;
+
 public class ConnectToRestApi extends AsyncTask<String, Integer, String> {
 
     /**
@@ -23,8 +25,8 @@ public class ConnectToRestApi extends AsyncTask<String, Integer, String> {
 
             URL url = new URL(urls[0]);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setDoOutput(true);
+//            connection.setRequestMethod("GET");
+//            connection.setDoOutput(true);
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
             connection.connect();
@@ -42,7 +44,6 @@ public class ConnectToRestApi extends AsyncTask<String, Integer, String> {
                 content += line + "\n";
             }
             result = content;
-            System.out.println("Retour du serveur :"+result);
             return result;
 
         }catch (MalformedURLException e){
@@ -70,7 +71,6 @@ public class ConnectToRestApi extends AsyncTask<String, Integer, String> {
      */
     protected void onPostExecute(String result) {
         // this is executed on the main thread after the process is over
-
 
 
     }

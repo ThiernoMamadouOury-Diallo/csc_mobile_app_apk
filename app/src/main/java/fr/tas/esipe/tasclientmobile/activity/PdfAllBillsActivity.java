@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -19,7 +20,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import fr.tas.esipe.tasclientmobile.R;
 import fr.tas.esipe.tasclientmobile.endpoint.ConnectToRestApi;
@@ -40,16 +46,36 @@ public class PdfAllBillsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pdf_alll_bills);
         setTitle("Dernières factures");
         //Check if permission is granted(for Marshmallow and higher versions)
-        if (Build.VERSION.SDK_INT >= 23)
-            checkPermission();
-        else
-            initViews();
+        if (Build.VERSION.SDK_INT >= 23) {
+            StrictMode.ThreadPolicy policy = new
+                    StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            try {
+                checkPermission();
+            } catch (ExecutionException | JSONException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                initViews();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
     ListView listView;
     ArrayList<BillFileBean> list;
     PdfFileAdapter pdfFileAdapter;
 
-    public void initViews(){
+    public void initViews() throws ExecutionException, InterruptedException, JSONException {
         //views initialization
         listView = findViewById(R.id.listView);
         list = new ArrayList<>();
@@ -77,13 +103,18 @@ public class PdfAllBillsActivity extends AppCompatActivity {
     /**
      * Initialize Client Bills URLs Array
      */
-    public void initList(){
+    public void initList() throws ExecutionException, InterruptedException, JSONException {
 
-        //Connexion à l'API REST pour recupérer la liste des factures
-        //Mettre le resultat dans le tableau d'URL 192.168.0.43
-        new ConnectToRestApi().execute("http://172.16.0.2:5000/bills/1");
-        // Remplir la list d'url ici
-        listBills.add("http://maven.apache.org/archives/maven-1.x/maven.pdf");
+       //192.168.0.43 172.16.0.2
+        String jsonBillsUrls = new ConnectToRestApi().execute("http://10.0.2.2:5000/bills/1").get();
+
+        JSONObject obj = new JSONObject(jsonBillsUrls);
+        JSONArray arr = obj.getJSONArray("bills");
+        for (int i = 0; i < arr.length(); i++)
+        {
+            String uri = arr.getJSONObject(i).getString("uri");
+            listBills.add(uri);
+        }
 
         try{
 
@@ -100,7 +131,7 @@ public class PdfAllBillsActivity extends AppCompatActivity {
     }
 
     //Handling permissions for Android Marshmallow and above
-    public void checkPermission() {
+    public void checkPermission() throws ExecutionException, InterruptedException, JSONException {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             //if permission granted, initialize the views
             initViews();
@@ -116,7 +147,15 @@ public class PdfAllBillsActivity extends AppCompatActivity {
         switch (requestCode) {
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    initViews();
+                    try {
+                        initViews();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     //permission is denied (this is the first time, when "never ask again" is not checked)
                     if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
