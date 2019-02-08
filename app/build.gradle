@@ -16,6 +16,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -28,4 +31,9 @@ dependencies {
     implementation files('libs/slf4j-android-1.7.25.jar')
     implementation files('libs/slf4j-api-1.7.25.jar')
     implementation files('libs/osmdroid-android-6.0.2-sources.jar')
+
+    // Optional -- Robolectric environment
+    testImplementation 'androidx.test:core:1.0.0'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:1.10.19'
 }
