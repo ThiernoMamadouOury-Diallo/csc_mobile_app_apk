@@ -3,4 +3,7 @@
     <string name="Bills_list">Mes factures</string>
     <string name="app_name">TAS Mobile</string>
     <string name="title_activity_pdf_all_bills">PdfAllBills</string>
+    <string name="Maps">Maps</string>
+    <string name="Bills">Bills</string>
+    <string name="setting">Setting</string>
 </resources>
