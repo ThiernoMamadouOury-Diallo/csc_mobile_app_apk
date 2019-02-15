@@ -39,7 +39,7 @@ public class BillsNotification {
     public  ArrayList<BillFileBean> initList() throws JSONException {
 
         JSONObject obj = new JSONObject(jSon);
-        JSONArray arr = obj.getJSONArray("bill");
+        JSONArray arr = obj.getJSONArray("bills");
         for (int i = 0; i < arr.length(); i++)
         {
             String uri = arr.getJSONObject(i).getString("uri");
