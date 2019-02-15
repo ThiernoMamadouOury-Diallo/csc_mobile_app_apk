@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "378598491126",
+    "firebase_url": "https://pdsappmobile.firebaseio.com",
+    "project_id": "tasclientmobile",
+    "storage_bucket": "pdsappmobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378598491126:android:12c889def465f56b",
+        "android_client_info": {
+          "package_name": "fr.tas.esipe.tasclientmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378598491126-uue16rah18c69n24p361j587ub33ugmm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYBJRpS947-OBk7Mr0dyumBatgXEYu-Yk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

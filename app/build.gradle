@@ -16,9 +16,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    testOptions {
-        unitTests.includeAndroidResources = true
-    }
 }
 
 dependencies {
@@ -31,12 +28,8 @@ dependencies {
     implementation files('libs/slf4j-android-1.7.25.jar')
     implementation files('libs/slf4j-api-1.7.25.jar')
     implementation files('libs/osmdroid-android-6.0.2-sources.jar')
-
-    compile "com.android.support:cardview-v7:28.0.0"
-    compile 'com.android.support:recyclerview-v7:28.0.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-messaging:10.2.1'
 }
+
+apply plugin: 'com.google.gms.google-services'
