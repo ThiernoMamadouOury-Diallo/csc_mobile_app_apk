@@ -30,13 +30,16 @@ import java.util.concurrent.ExecutionException;
 import fr.tas.esipe.tasclientmobile.R;
 import fr.tas.esipe.tasclientmobile.endpoint.ConnectToRestApi;
 import fr.tas.esipe.tasclientmobile.model.BillFileBean;
+import fr.tas.esipe.tasclientmobile.utils.BillsNotification;
 import fr.tas.esipe.tasclientmobile.utils.PdfFileAdapter;
 
 public class PdfAllBillsActivity extends AppCompatActivity {
 
     //get the absolute path of phone storage
     final static String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+    static String jsonBillsUrls = "";
     final static String restApiClientUrl = "http://maven.apache.org/archives/maven-1.x/maven.pdf";
+    final static String haProxyBaseUrl = "http://192.168.20.7:8088/home/tas/";
     final static String clientId = "12345";
     private ArrayList<String> listBills = new ArrayList<>();
 
@@ -94,7 +97,8 @@ public class PdfAllBillsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Download File from server
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(list.get(position).getBillName())));
+               //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(list.get(position).getBillName())));
+               startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(haProxyBaseUrl+list.get(position).getBillName())));
             }
         });
     }
@@ -105,29 +109,15 @@ public class PdfAllBillsActivity extends AppCompatActivity {
      */
     public void initList() throws ExecutionException, InterruptedException, JSONException {
 
-        String jsonBillsUrls = new ConnectToRestApi()
-                .execute("http://api.dev.tas.inside.esiag.info/restapiclient/bills/1").get();
 
-        JSONObject obj = new JSONObject(jsonBillsUrls);
-        JSONArray arr = obj.getJSONArray("bills");
-        for (int i = 0; i < arr.length(); i++)
-        {
-            String uri = arr.getJSONObject(i).getString("uri");
-            listBills.add(uri);
-        }
+//        String jsonBillsUrls = new ConnectToRestApi()
+//                .execute("http://http://10.0.2.2:8000/lastBill/1").get();
+////                .execute("http://api.dev.tas.inside.esiag.info/restapiclient/bills/1").get();
 
-        try{
+        ///Get Data
+        BillsNotification billsNotification = new BillsNotification(jsonBillsUrls);
+        list = billsNotification.initList();
 
-            for(String fileName : listBills){
-                //choose only the pdf files
-                if(fileName.endsWith(".pdf")){
-                    list.add(new BillFileBean(fileName));
-                }
-            }
-
-        }catch(Exception e){
-            Log.i("show","Something went wrong. "+e.toString());
-        }
     }
 
     //Handling permissions for Android Marshmallow and above

@@ -5,6 +5,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import fr.tas.esipe.tasclientmobile.utils.BillsNotification;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
@@ -32,6 +34,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d("body", "Message Notification Body: " + remoteMessage.getNotification().getBody());
+                PdfAllBillsActivity.jsonBillsUrls = remoteMessage.getNotification().getBody();
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
