@@ -4,15 +4,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import fr.tas.esipe.tasclientmobile.endpoint.ConnectToRestApi;
 import fr.tas.esipe.tasclientmobile.activity.PdfAllBillsActivity;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import fr.tas.esipe.tasclientmobile.endpoint.ConnectToRestApi;
 
 /**
  *

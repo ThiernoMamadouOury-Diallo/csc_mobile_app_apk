@@ -10,8 +10,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-import fr.tas.esipe.tasclientmobile.activity.PdfAllBillsActivity;
-
 public class ConnectToRestApi extends AsyncTask<String, Integer, String> {
 
     /**

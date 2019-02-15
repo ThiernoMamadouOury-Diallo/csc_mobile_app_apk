@@ -13,10 +13,10 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.List;
 
 import fr.tas.esipe.tasclientmobile.R;
+import fr.tas.esipe.tasclientmobile.endpoint.GetDataService;
 import fr.tas.esipe.tasclientmobile.endpoint.RetrofitClientInstance;
 import fr.tas.esipe.tasclientmobile.model.CustomOverLay;
 import fr.tas.esipe.tasclientmobile.model.Location;
-import fr.tas.esipe.tasclientmobile.endpoint.GetDataService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
