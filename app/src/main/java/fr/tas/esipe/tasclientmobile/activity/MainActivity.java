@@ -7,8 +7,11 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import fr.tas.esipe.tasclientmobile.R;
 
@@ -18,9 +21,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         checkPermission();
+        Log.d("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
         maps = (Button) findViewById(R.id.map);
 
         maps.setOnClickListener(new View.OnClickListener() {
