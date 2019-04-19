@@ -2,6 +2,7 @@ package fr.tas.esipe.tasclientmobile.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import fr.tas.esipe.tasclientmobile.R;
 import org.osmdroid.util.GeoPoint;
@@ -22,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapsActivity extends Activity implements Callback<List<Parking>> {
+public class MapsActivity extends AppCompatActivity implements Callback<List<Parking>> {
 
     private MapView mMapView;
     private MapController mMapController;
@@ -81,7 +82,7 @@ public class MapsActivity extends Activity implements Callback<List<Parking>> {
         if(response.isSuccessful()) {
             List<Overlay> mapOverlays = mMapView.getOverlays();
             List<Parking> parkingsList = response.body();
-            CustomOverLay overlays = new CustomOverLay(getResources().getDrawable(R.drawable.icons_marker_40dp, getTheme()), mMapView, this );
+            CustomOverLay overlays = new CustomOverLay(getResources().getDrawable(R.drawable.common_full_open_on_phone, getTheme()), mMapView, this );
 
             for(Parking parking : parkingsList){
                 GeoPoint p = new GeoPoint(parking.getLatitude(), parking.getLongitude());
