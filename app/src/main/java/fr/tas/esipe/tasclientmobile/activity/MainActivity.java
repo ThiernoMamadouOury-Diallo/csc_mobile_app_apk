@@ -1,13 +1,10 @@
 package fr.tas.esipe.tasclientmobile.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -15,22 +12,34 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toolbar;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import fr.tas.esipe.tasclientmobile.exception.LoginException;
+import fr.tas.esipe.tasclientmobile.model.User;
+import fr.tas.esipe.tasclientmobile.service.LoginService;
 import fr.tas.esipe.tasclientmobile.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private LoginService loginService;
+    public static User connectedUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(loginService == null)
+            loginService = new LoginService(getApplicationContext());
+
         setContentView(R.layout.activity_main);
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -44,6 +53,36 @@ public class MainActivity extends AppCompatActivity
 
         checkPermission();
         Log.d("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
+
+        Button loginButton = (Button)findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText login = (EditText)findViewById(R.id.loginEdit);
+                EditText password = (EditText)findViewById(R.id.passwordEdit);
+
+                if(login != null && password != null && !"".equals(login.getText().toString()) && !"".equals(password.getText().toString())) {
+                    try{
+                        User user = loginService.getLoggedUser(login.getText().toString(), password.getText().toString());
+                        if(user != null){
+                            connectedUser = user;
+                        }
+                    }catch(Exception e){
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please fill the fields correctly", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        if(connectedUser != null){
+            LinearLayout loginLayout = (LinearLayout)findViewById(R.id.loginLayout);
+            loginLayout.setVisibility(LinearLayout.GONE);
+
+            TextView helloText = (TextView)findViewById(R.id.homeText);
+            helloText.setText(String.format("Hello %s", connectedUser.getLogin()));
+        }
     }
 
     /**
@@ -82,17 +121,21 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.maps_drawer) {
-            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.bills_drawer) {
-            Intent intent = new Intent(MainActivity.this, PdfAllBillsActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.unlock_drawer) {
-            Intent intent = new Intent(MainActivity.this, UnlockActivity.class);
-            startActivity(intent);
+        if(connectedUser != null) {
+            if (id == R.id.maps_drawer) {
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(intent);
+            }
+            if (id == R.id.bills_drawer) {
+                Intent intent = new Intent(MainActivity.this, PdfAllBillsActivity.class);
+                startActivity(intent);
+            }
+            if (id == R.id.unlock_drawer) {
+                Intent intent = new Intent(MainActivity.this, UnlockActivity.class);
+                startActivity(intent);
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "Log in to access these features", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
