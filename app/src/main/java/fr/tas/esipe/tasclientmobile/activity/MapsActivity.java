@@ -3,6 +3,7 @@ package fr.tas.esipe.tasclientmobile.activity;
 import android.app.Activity;
 import android.os.Bundle;
 
+import fr.tas.esipe.tasclientmobile.R;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
@@ -11,8 +12,8 @@ import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.List;
+import java.util.logging.Logger;
 
-import fr.tas.esipe.tasclientmobile.R;
 import fr.tas.esipe.tasclientmobile.endpoint.RetrofitClientInstance;
 import fr.tas.esipe.tasclientmobile.model.CustomOverLay;
 import fr.tas.esipe.tasclientmobile.endpoint.GetDataService;
@@ -80,16 +81,17 @@ public class MapsActivity extends Activity implements Callback<List<Parking>> {
         if(response.isSuccessful()) {
             List<Overlay> mapOverlays = mMapView.getOverlays();
             List<Parking> parkingsList = response.body();
-            CustomOverLay overlays = new CustomOverLay(getResources().getDrawable(R.drawable.baseline_accessible_forward_black_18dp), mMapView);
+            CustomOverLay overlays = new CustomOverLay(getResources().getDrawable(R.drawable.icons_marker_40dp, getTheme()), mMapView, this );
 
             for(Parking parking : parkingsList){
                 GeoPoint p = new GeoPoint(parking.getLatitude(), parking.getLongitude());
                 OverlayItem overlayItem = new OverlayItem("aaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaa", p);
+
                 overlays.addOverlayItem(overlayItem);
             }
             mapOverlays.add(overlays);
         } else {
-            System.out.println(response.errorBody());
+            Logger.getGlobal().info(response.errorBody().toString());
         }
 
     }

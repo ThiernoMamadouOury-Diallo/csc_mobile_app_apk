@@ -1,8 +1,10 @@
 package fr.tas.esipe.tasclientmobile.model;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.widget.Toast;
 
 import org.osmdroid.ResourceProxy;
 import org.osmdroid.api.IMapView;
@@ -16,8 +18,9 @@ public class CustomOverLay extends ItemizedOverlay<OverlayItem> {
 
     private ArrayList<OverlayItem> overlayItems = new ArrayList<OverlayItem>();
     private MapView mapView;
+    private Context context;
 
-    public CustomOverLay(Drawable drawable, MapView mapView) {
+    public CustomOverLay(Drawable drawable, MapView mapView, Context context) {
         super(boundCenter(drawable), new ResourceProxy() {
             @Override
             public String getString(string string) {
@@ -45,6 +48,8 @@ public class CustomOverLay extends ItemizedOverlay<OverlayItem> {
             }
         });
         this.mapView = mapView;
+        this.context = context;
+
     }
 
     public void addOverlayItem(OverlayItem item) {
@@ -71,6 +76,7 @@ public class CustomOverLay extends ItemizedOverlay<OverlayItem> {
 
     @Override
     protected boolean onTap(int index) {
+        Toast.makeText(context, "Item " + index + " has been tapped!", Toast.LENGTH_SHORT).show();
         return true;
     }
 
