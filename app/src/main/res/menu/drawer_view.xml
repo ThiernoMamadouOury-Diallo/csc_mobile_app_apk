@@ -10,8 +10,8 @@
             android:title="@string/Bills"/>
 
         <item
-            android:id="@+id/setting"
-            android:title="@string/setting"/>
+            android:id="@+id/unlock_drawer"
+            android:title="@string/unlock"/>
 
     </group>
 </menu>

@@ -90,8 +90,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, PdfAllBillsActivity.class);
             startActivity(intent);
         }
-        if (id == R.id.setting) {
-            // Handle the camera action
+        if (id == R.id.unlock_drawer) {
+            Intent intent = new Intent(MainActivity.this, UnlockActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
