@@ -6,6 +6,7 @@
     <string name="Maps">Maps</string>
     <string name="Bills">Bills</string>
     <string name="unlock">Unlock</string>
+    <string name="Bluetooth">Bluetooth</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Car Sharing Club</string>
