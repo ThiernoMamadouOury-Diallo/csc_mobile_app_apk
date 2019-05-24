@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 public class User {
 
     private int id;
-    private LocalDateTime registration_date;
+    private String reg_date;
     private String login;
     private String firstname;
     private String lastname;
-    private LocalDateTime birthdate;
+    private String birthdate;
     private String phone_number;
     private String city;
     private String address;
@@ -23,14 +23,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public LocalDateTime getRegistration_date() {
-        return registration_date;
-    }
-
-    public void setRegistration_date(LocalDateTime registration_date) {
-        this.registration_date = registration_date;
     }
 
     public String getLogin() {
@@ -57,11 +49,19 @@ public class User {
         this.lastname = lastname;
     }
 
-    public LocalDateTime getBirthdate() {
+    public String getReg_date() {
+        return reg_date;
+    }
+
+    public void setReg_date(String reg_date) {
+        this.reg_date = reg_date;
+    }
+
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(LocalDateTime birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

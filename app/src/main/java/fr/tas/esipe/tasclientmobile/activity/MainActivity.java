@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity
                         User user = loginService.getLoggedUser(login.getText().toString(), password.getText().toString());
                         if(user != null){
                             connectedUser = user;
+                            setUserLayout();
                         }
                     }catch(Exception e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -77,12 +78,18 @@ public class MainActivity extends AppCompatActivity
         });
 
         if(connectedUser != null){
-            LinearLayout loginLayout = (LinearLayout)findViewById(R.id.loginLayout);
-            loginLayout.setVisibility(LinearLayout.GONE);
-
-            TextView helloText = (TextView)findViewById(R.id.homeText);
-            helloText.setText(String.format("Hello %s", connectedUser.getLogin()));
+            setUserLayout();
         }
+    }
+
+    private void setUserLayout(){
+        LinearLayout loginLayout = (LinearLayout)findViewById(R.id.loginLayout);
+        loginLayout.setVisibility(LinearLayout.GONE);
+        LinearLayout passwordLayout = (LinearLayout)findViewById(R.id.passwordLayout);
+        passwordLayout.setVisibility(LinearLayout.GONE);
+
+        TextView helloText = (TextView)findViewById(R.id.homeText);
+        helloText.setText(String.format("Hello %s", connectedUser.getLogin()));
     }
 
     /**
