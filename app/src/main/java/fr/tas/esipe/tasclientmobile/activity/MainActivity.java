@@ -141,6 +141,11 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, UnlockActivity.class);
                 startActivity(intent);
             }
+
+            if (id == R.id.Bluetooth) {
+                Intent intent = new Intent(MainActivity.this, BleActivity.class);
+                startActivity(intent);
+            }
         }else{
             Toast.makeText(getApplicationContext(), "Log in to access these features", Toast.LENGTH_SHORT).show();
         }
