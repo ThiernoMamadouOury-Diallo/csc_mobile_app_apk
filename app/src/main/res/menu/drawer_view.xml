@@ -12,6 +12,9 @@
         <item
             android:id="@+id/unlock_drawer"
             android:title="@string/unlock"/>
+        <item
+            android:id="@+id/Bluetooth"
+            android:title="@string/Bluetooth"/>
 
     </group>
 </menu>
