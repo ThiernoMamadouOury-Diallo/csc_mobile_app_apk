@@ -32,7 +32,7 @@ public class BleActivity extends AppCompatActivity {
     Boolean isSocketUP = false;
     FindBlueToCreateConnection findBlueToCreateConnection;
     BluetoothSocket mmSocket;
-    String ClientId_And_CarId="USER_ID AA-000-ZZ";
+    String ClientId_And_CarId = String.format("%s %s", MainActivity.connectedUser.getId(), "AA-000-ZZ");
     byte[] bytes = ClientId_And_CarId.getBytes(Charset.defaultCharset());
     ConnectionInfo connectionInfo;
 
