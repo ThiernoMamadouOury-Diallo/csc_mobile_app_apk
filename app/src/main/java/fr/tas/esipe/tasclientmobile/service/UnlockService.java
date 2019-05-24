@@ -5,53 +5,59 @@ import android.os.AsyncTask;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import fr.tas.esipe.tasclientmobile.R;
 import fr.tas.esipe.tasclientmobile.exception.LoginException;
+import fr.tas.esipe.tasclientmobile.model.Reservation;
 import fr.tas.esipe.tasclientmobile.model.User;
 
-public class LoginService {
+public class UnlockService {
 
     private final Context context;
 
-    public LoginService(Context context){
+    public UnlockService(Context context){
         this.context = context;
     }
 
-    public User getLoggedUser(String login, String password) throws LoginException, IOException, ExecutionException, InterruptedException {
-        String result = new GetRequestUrl().execute(new String[]{login, password}).get();
+    public ArrayList<Integer> getReservation(User user) throws ExecutionException, InterruptedException {
+        String result = new UnlockService.GetRequestUrl().execute(user).get();
 
-        User user = null;
-        if(result != null && result != "") {
-            ObjectMapper mapper = new ObjectMapper();
-            user = mapper.readValue(result.substring(result.indexOf("{"), result.lastIndexOf("}") + 1).replace("\\", ""), User.class);
+        ArrayList<Integer> list = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(result.replace("\"",""));
+            if(jsonArray != null){
+                int len = jsonArray.length();
+                for(int i = 0; i < len; i++){
+                    list.add(jsonArray.getJSONArray(i).getInt(0));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-        if (user == null) {
-            throw new LoginException("Bad authentication");
-        }
 
-        return user;
+        return list;
     }
 
-    private class GetRequestUrl extends AsyncTask<String[], Void, String>{
+    private class GetRequestUrl extends AsyncTask<User, Void, String> {
 
         @Override
-        protected String doInBackground(String[]... strings) {
+        protected String doInBackground(User... user) {
             try {
-                URL url = new URL(context.getResources().getString(R.string.dev_api) + "restapiclient/login");
+                URL url = new URL(context.getResources().getString(R.string.dev_api) + "unlock/getBooking");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(5000);
@@ -61,8 +67,7 @@ public class LoginService {
                 connection.setRequestMethod("POST");
 
                 JSONObject cred = new JSONObject();
-                cred.put("login", strings[0][0]);
-                cred.put("password", strings[0][1]);
+                cred.put("id_account", String.valueOf(user[0].getId()));
 
                 OutputStream os = connection.getOutputStream();
                 os.write(cred.toString().getBytes("UTF-8"));

@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity
         loginLayout.setVisibility(LinearLayout.GONE);
         LinearLayout passwordLayout = (LinearLayout)findViewById(R.id.passwordLayout);
         passwordLayout.setVisibility(LinearLayout.GONE);
+        Button loginButton = (Button)findViewById(R.id.loginButton);
+        loginButton.setVisibility(Button.GONE);
 
         TextView helloText = (TextView)findViewById(R.id.homeText);
         helloText.setText(String.format("Hello %s", connectedUser.getLogin()));
